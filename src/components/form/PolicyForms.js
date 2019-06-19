@@ -1,17 +1,19 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
+import { StyledBootstrapCol } from './style.js'
 import CreateClaimForm from './CreateClaimForm'
 import CreatePolicyForm from './CreatePolicyForm'
 import DeletePolicyForm from './DeletePolicyForm'
 
-const PolicyForms = (props) => {
+const PolicyForms = props => {
 	const { request } = props.isChange
 	return (
-		<Fragment>
+		<StyledBootstrapCol>
+			{!request ? <CreatePolicyForm /> : ''}
 			{request === 'CREATE_POLICY' && <CreatePolicyForm />}
 			{request === 'CREATE_CLAIM' && <CreateClaimForm />}
 			{request === 'DELETE_POLICY' && <DeletePolicyForm />}
-		</Fragment>
+		</StyledBootstrapCol>
 	)
 }
 const mapToState = ({ isChange }) => {

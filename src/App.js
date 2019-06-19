@@ -1,12 +1,18 @@
 import React from 'react'
+import { Container, Row, Col } from 'react-bootstrap'
 import './App.css'
-import Insurance from './insurance'
+import { StyledContainer } from './style.js'
+import Form from './components/form/'
+import SideImage from './components/SideImage/'
 
-function App() {
+const App = () => {
 	return (
-		<div className="App">
-			<Insurance />
-		</div>
+		<StyledContainer fluid={true}>
+			<Row>
+				<SideImage />
+				<Form />
+			</Row>
+		</StyledContainer>
 	)
 }
 

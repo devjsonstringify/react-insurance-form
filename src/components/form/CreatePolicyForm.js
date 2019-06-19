@@ -2,23 +2,22 @@ import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { createPolicy, isChanged } from '../../actions'
-import OptionForm from './UI/Container'
-import FormInput from '../../common/FormInput'
+import Option from '../../common/Container.js'
+import FormInput from '../../common/InputField'
 import useForm from '../../common/useForm'
+import { FormWrapper, StyledBootstrapCol } from './style.js'
 
-const CreatePolicyForm = (props) => {
+const CreatePolicyForm = props => {
 	const getData = () => props.createPolicy(`${values.policyName}`)
 	const { values, handleChange, handleSubmit } = useForm(getData)
-	const FormWrapper = styled.div`
-		border: 1px solid #ccc;
-		border-radius: 3px;
-		padding: 1em;
-		box-sizing: border-box;
-	`
+
 	return (
 		<FormWrapper>
-			<OptionForm buttonText={props.isChange.request} dispatcher={handleSubmit}>
-				<div className="form-group">
+			<Option
+				buttonText={props.isChange.request}
+				dispatcher={handleSubmit}
+			>
+				<StyledBootstrapCol>
 					<FormInput
 						type="text"
 						placeholder="Enter policy name"
@@ -26,8 +25,8 @@ const CreatePolicyForm = (props) => {
 						name="policyName"
 						onChange={handleChange}
 					/>
-				</div>
-			</OptionForm>
+				</StyledBootstrapCol>
+			</Option>
 		</FormWrapper>
 	)
 }

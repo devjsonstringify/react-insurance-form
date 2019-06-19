@@ -1,17 +1,17 @@
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import RequestForms from './RequestForms'
+import { StyledBootstrapCol, StyledOuter, StyledInner } from './style.js'
 
 const InsuranceForm = () => {
 	return (
-		<Container>
-			<Row>
-				<Col>
+		<StyledBootstrapCol lg={6}>
+			<StyledOuter>
+				<StyledInner>
 					<RequestForms />
-				</Col>
-				<Col>2 of 2</Col>
-			</Row>
-		</Container>
+				</StyledInner>
+			</StyledOuter>
+		</StyledBootstrapCol>
 	)
 }
 
