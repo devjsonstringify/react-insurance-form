@@ -2,7 +2,7 @@ import React from 'react'
 import { InputGroup, Row, Col } from 'react-bootstrap'
 import { StyledBootrapGroup, StyledBootrapInput } from './styled.js'
 
-const Field = ({ type, placeholder, value, name, onChange }) => {
+export default ({ type, placeholder, value, name, onChange }) => {
 	return (
 		<StyledBootrapGroup>
 			<StyledBootrapInput
@@ -11,9 +11,9 @@ const Field = ({ type, placeholder, value, name, onChange }) => {
 				name={name}
 				value={value}
 				onChange={onChange}
+				autoFocus
 			/>
 		</StyledBootrapGroup>
 	)
 }
 
-export default Field

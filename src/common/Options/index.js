@@ -7,7 +7,7 @@ const Option = ({ onChange, optionList }) => {
 		<Form.Group className="mb-0">
 			<StyledBootrapInput size="lg" as="select" onChange={onChange}>
 				{optionList.map(({ value, item }) => (
-					<option key={value} value={value}>
+					<option key={Math.random()} value={value}>
 						{item}
 					</option>
 				))}
