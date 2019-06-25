@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 
-const useForm = callback => {
+const useForm = (validate, callback) => {
 	const [values, setValues] = useState({
 		policyName: '',
 		amountToCollect: ''
 	})
+	const [errors, setErrors] = useState({})
+	const [isSubmitting, setSubmitting] = useState(false)
 
 	const handleChange = event => {
 		event.preventDefault()
@@ -14,13 +16,41 @@ const useForm = callback => {
 		})
 	}
 
-	const handleSubmit = event => {
-		if (event) {
-			event.preventDefault()
+	useEffect(() => {
+		if (isSubmitting) {
+			const noErrors = Object.keys(errors).length === 0
+			if (noErrors) {
+				console.log(
+					'authenticated!',
+					values.policyName,
+					values.amountToCollect
+				)
+				setSubmitting(false)
+			} else {
+				setSubmitting(false)
+			}
 		}
-		callback()
+	}, [errors])
+
+	const handleBlur = () => {
+		const validationErrors = validate(values)
+		setErrors(validationErrors)
 	}
-	return { values, handleChange, handleSubmit }
+
+	const handleSubmit = event => {
+		event.preventDefault()
+		setSubmitting(true)
+		const validationErrors = validate(values)
+		setErrors(validationErrors)
+	}
+	return {
+		handleSubmit,
+		handleChange,
+		handleBlur,
+		values,
+		errors,
+		isSubmitting
+	}
 }
 
 export default useForm

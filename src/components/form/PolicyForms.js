@@ -1,28 +1,22 @@
-import React, { Fragment } from 'react'
-import { connect } from 'react-redux'
+import React, { Fragment, useState } from 'react'
 import { StyledBootstrapCol } from './style.js'
 import CreateClaimForm from './CreateClaimForm'
 import CreatePolicyForm from './CreatePolicyForm'
 import DeletePolicyForm from './DeletePolicyForm'
 
-const PolicyForms = props => {
-	const { request } = props.isChange
+const PolicyForms = ({ request, ...props }) => {
 	return (
 		<StyledBootstrapCol>
-			{!request ? <CreatePolicyForm /> : ''}
-			{request === 'CREATE_POLICY' && <CreatePolicyForm />}
-			{request === 'CREATE_CLAIM' && <CreateClaimForm />}
-			{request === 'DELETE_POLICY' && <DeletePolicyForm />}
+			{request === 'CREATE_POLICY' && (
+				<CreatePolicyForm request={request} />
+			)}
+			{request === 'CREATE_CLAIM' && (
+				<CreateClaimForm request={request} />
+			)}
+			{request === 'DELETE_POLICY' && (
+				<DeletePolicyForm request={request} />
+			)}
 		</StyledBootstrapCol>
 	)
 }
-const mapToState = ({ isChange }) => {
-	return {
-		isChange
-	}
-}
-
-export default connect(
-	mapToState,
-	null
-)(PolicyForms)
+export default PolicyForms

@@ -7,34 +7,66 @@ import FormInput from '../../common/InputField'
 import useForm from '../../common/useForm'
 import { FormWrapper, StyledBootstrapCol } from './style.js'
 
-const CreateClaimForm = props => {
-	const getData = () => {
-		props.createClaim(`${values.policyName}`, `${values.amountToCollect}`)
+const CreateClaimForm = ({
+	isSubmit,
+	onBlur,
+	request,
+	createClaim,
+	...props
+}) => {
+	const {
+		handleSubmit,
+		handleChange,
+		handleBlur,
+		values,
+		errors,
+		isSubmitting
+	} = useForm(validateAuth, setClaim)
+
+	function validateAuth(values) {
+		let errors = {}
+		// policyName Errors
+		if (!values.policyName) {
+			errors.policyName = 'Required policy name'
+		}
+		// Password Errors
+		if (!values.amountToCollect) {
+			errors.amountToCollect = 'Required amount of money to collect'
+		} else if (values.amountToCollect.length === 0) {
+			errors.amountToCollect = 'amountToCollect must be at least 1 digit'
+		}
+		return errors
 	}
-	const { values, handleChange, handleSubmit } = useForm(getData)
+
+	function setClaim() {
+		createClaim(`${values.policyName}`, `${values.amountToCollect}`)
+	}
+
 	return (
 		<FormWrapper>
 			<Option
-				buttonText={props.isChange.request}
+				buttonText={request}
 				dispatcher={handleSubmit}
+				isSubmit={isSubmitting}
 			>
 				<StyledBootstrapCol>
 					<FormInput
+						className={errors.policyName && 'error-input'}
 						type="text"
-						placeholder="John Doe"
-						name="policyName"
+						placeholder="Ex: John Doe"
 						value={values.policyName}
+						name="policyName"
 						onChange={handleChange}
+						onBlur={handleBlur}
 					/>
-				</StyledBootstrapCol>
-				<StyledBootstrapCol>
 					<FormInput
-						label="Amount to claim"
+						className={errors.amountToCollect && 'error-input'}
 						type="number"
-						name="amountToCollect"
-						placeholder="500"
+						placeholder="Ex: 100"
 						value={values.amountToCollect}
+						name="amountToCollect"
 						onChange={handleChange}
+						onBlur={handleBlur}
 					/>
 				</StyledBootstrapCol>
 			</Option>
