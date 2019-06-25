@@ -7,20 +7,51 @@ import FormInput from '../../common/InputField'
 import useForm from '../../common/useForm'
 import { FormWrapper, StyledBootstrapCol } from './style.js'
 
-const CreatePolicyForm = ({ request, ...props }) => {
-	const getData = () => props.createPolicy(`${values.policyName}`)
-	const { values, handleChange, handleSubmit } = useForm(getData)
+const CreatePolicyForm = ({
+	isSubmit,
+	onBlur,
+	request,
+	createPolicy,
+	...props
+}) => {
+	const {
+		handleSubmit,
+		handleChange,
+		handleBlur,
+		values,
+		errors,
+		isSubmitting
+	} = useForm(validateAuth, setPolicy)
+
+	function validateAuth(values) {
+		let errors = {}
+		// policyName Errors
+		if (!values.policyName) {
+			errors.policyName = 'Required policy name'
+		}
+		return errors
+	}
+
+	function setPolicy() {
+		createPolicy(`${values.policyName}`)
+	}
 
 	return (
 		<FormWrapper>
-			<Option buttonText={request} dispatcher={handleSubmit}>
+			<Option
+				buttonText={request}
+				dispatcher={handleSubmit}
+				isSubmit={isSubmitting}
+			>
 				<StyledBootstrapCol>
 					<FormInput
+						className={errors.policyName && 'error-input'}
 						type="text"
-						placeholder="Create policy form"
+						placeholder="Ex: John Doe"
 						value={values.policyName}
 						name="policyName"
 						onChange={handleChange}
+						onBlur={handleBlur}
 					/>
 				</StyledBootstrapCol>
 			</Option>

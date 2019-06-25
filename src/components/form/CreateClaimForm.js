@@ -7,28 +7,66 @@ import FormInput from '../../common/InputField'
 import useForm from '../../common/useForm'
 import { FormWrapper, StyledBootstrapCol } from './style.js'
 
-const CreateClaimForm = ({ request, ...props }) => {
-	const getData = () =>
-		props.createClaim(`${values.policyName}`, `${values.amountToCollect}`)
+const CreateClaimForm = ({
+	isSubmit,
+	onBlur,
+	request,
+	createClaim,
+	...props
+}) => {
+	const {
+		handleSubmit,
+		handleChange,
+		handleBlur,
+		values,
+		errors,
+		isSubmitting
+	} = useForm(validateAuth, setClaim)
 
-	const { values, handleChange, handleSubmit } = useForm(getData)
+	function validateAuth(values) {
+		let errors = {}
+		// policyName Errors
+		if (!values.policyName) {
+			errors.policyName = 'Required policy name'
+		}
+		// Password Errors
+		if (!values.amountToCollect) {
+			errors.amountToCollect = 'Required amount of money to collect'
+		} else if (values.amountToCollect.length === 0) {
+			errors.amountToCollect = 'amountToCollect must be at least 1 digit'
+		}
+		return errors
+	}
+
+	function setClaim() {
+		createClaim(`${values.policyName}`, `${values.amountToCollect}`)
+	}
+
 	return (
 		<FormWrapper>
-			<Option buttonText={request} dispatcher={handleSubmit}>
+			<Option
+				buttonText={request}
+				dispatcher={handleSubmit}
+				isSubmit={isSubmitting}
+			>
 				<StyledBootstrapCol>
 					<FormInput
+						className={errors.policyName && 'error-input'}
 						type="text"
-						placeholder="Create claim form"
+						placeholder="Ex: John Doe"
 						value={values.policyName}
 						name="policyName"
 						onChange={handleChange}
+						onBlur={handleBlur}
 					/>
 					<FormInput
+						className={errors.amountToCollect && 'error-input'}
 						type="number"
-						placeholder="amount To Collect"
+						placeholder="Ex: 100"
 						value={values.amountToCollect}
 						name="amountToCollect"
 						onChange={handleChange}
+						onBlur={handleBlur}
 					/>
 				</StyledBootstrapCol>
 			</Option>
