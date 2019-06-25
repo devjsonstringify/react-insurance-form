@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, Fragment } from 'react'
 import store from '../../store'
 import { connect } from 'react-redux'
 import {
@@ -7,24 +7,32 @@ import {
 	deletePolicy,
 	isChanged
 } from '../../actions'
-import Options from './../../common/Options/'
+import Option from './../../common/Options/'
 import PolicyForms from './PolicyForms'
-import Message from '../../common/Message/'
 
-const RequestForms = ({ isChange, ...props }) => {
-	const handleChange = event => props.isChanged(event.target.value)
+const RequestForms = props => {
+	const [initial, setInitial] = useState('CREATE_POLICY')
+
+	const handleChange = event => {
+		event.preventDefault()
+		setInitial(event.target.value)
+	}
+
 	const options = [
-		{ value: 'CREATE_POLICY', item: 'CREATE POLICY' },
-		{ value: 'CREATE_CLAIM', item: 'CREATE CLAIM' },
-		{ value: 'DELETE_POLICY', item: 'DELETE POLICY' }
+		{ value: 'CREATE_POLICY', displayValue: 'CREATE POLICY', Id: 1 },
+		{ value: 'CREATE_CLAIM', displayValue: 'CREATE CLAIM', Id: 2 },
+		{ value: 'DELETE_POLICY', displayValue: 'DELETE POLICY', Id: 3 }
 	]
 
 	return (
-		<>
-			<Message />
-			<Options onChange={handleChange} optionList={options} />
-			<PolicyForms data={handleChange} />
-		</>
+		<Fragment>
+			<Option
+				onChange={handleChange}
+				initialValue={initial}
+				options={options}
+			/>
+			<PolicyForms request={initial} />
+		</Fragment>
 	)
 }
 

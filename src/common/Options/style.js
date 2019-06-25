@@ -2,7 +2,7 @@ import React from 'react'
 import { Form } from 'react-bootstrap'
 import styled from 'styled-components'
 
-export const StyledBootrapInput = styled(Form.Control)`
+export const Input = styled(Form)`
 	margin: 0 0 0.5em 0;
 	height: calc(1.5em + 1rem + 2px);
 	padding: 0.375rem 0.75rem;

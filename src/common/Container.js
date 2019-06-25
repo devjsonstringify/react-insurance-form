@@ -7,15 +7,14 @@ const OptionForm = ({ dispatcher, children, buttonText }) => {
 	const StyledForm = styled(Form)`
 		margin: 0;
 	`
-	const [defaultButtonTitle, setButtonTitle] = useState('CREATE POLICY')
 
 	return (
-		<StyledForm onSubmit={dispatcher}>
+		<Form onSubmit={dispatcher}>
 			{children}
 			<Button variant="primary" type="submit">
-				{!buttonText ? defaultButtonTitle : Slug(buttonText)}
+				{Slug(buttonText)}
 			</Button>
-		</StyledForm>
+		</Form>
 	)
 }
 

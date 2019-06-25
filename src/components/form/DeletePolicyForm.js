@@ -7,19 +7,16 @@ import FormInput from '../../common/InputField'
 import useForm from '../../common/useForm'
 import { FormWrapper, StyledBootstrapCol } from './style.js'
 
-const DeletePolicyForm = props => {
+const DeletePolicyForm = ({ request, ...props }) => {
 	const getData = () => props.deletePolicy(`${values.policyName}`)
 	const { values, handleChange, handleSubmit } = useForm(getData)
 	return (
 		<FormWrapper>
-			<Option
-				buttonText={props.isChange.request}
-				dispatcher={handleSubmit}
-			>
+			<Option buttonText={request} dispatcher={handleSubmit}>
 				<StyledBootstrapCol>
 					<FormInput
 						type="text"
-						placeholder="Enter policy name"
+						placeholder="Delete Policy Form"
 						value={values.policyName}
 						name="policyName"
 						onChange={handleChange}

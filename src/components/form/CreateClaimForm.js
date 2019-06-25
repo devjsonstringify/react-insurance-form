@@ -7,33 +7,27 @@ import FormInput from '../../common/InputField'
 import useForm from '../../common/useForm'
 import { FormWrapper, StyledBootstrapCol } from './style.js'
 
-const CreateClaimForm = props => {
-	const getData = () => {
+const CreateClaimForm = ({ request, ...props }) => {
+	const getData = () =>
 		props.createClaim(`${values.policyName}`, `${values.amountToCollect}`)
-	}
+
 	const { values, handleChange, handleSubmit } = useForm(getData)
 	return (
 		<FormWrapper>
-			<Option
-				buttonText={props.isChange.request}
-				dispatcher={handleSubmit}
-			>
+			<Option buttonText={request} dispatcher={handleSubmit}>
 				<StyledBootstrapCol>
 					<FormInput
 						type="text"
-						placeholder="John Doe"
-						name="policyName"
+						placeholder="Create claim form"
 						value={values.policyName}
+						name="policyName"
 						onChange={handleChange}
 					/>
-				</StyledBootstrapCol>
-				<StyledBootstrapCol>
 					<FormInput
-						label="Amount to claim"
 						type="number"
-						name="amountToCollect"
-						placeholder="500"
+						placeholder="amount To Collect"
 						value={values.amountToCollect}
+						name="amountToCollect"
 						onChange={handleChange}
 					/>
 				</StyledBootstrapCol>

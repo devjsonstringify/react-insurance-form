@@ -7,20 +7,17 @@ import FormInput from '../../common/InputField'
 import useForm from '../../common/useForm'
 import { FormWrapper, StyledBootstrapCol } from './style.js'
 
-const CreatePolicyForm = props => {
+const CreatePolicyForm = ({ request, ...props }) => {
 	const getData = () => props.createPolicy(`${values.policyName}`)
 	const { values, handleChange, handleSubmit } = useForm(getData)
 
 	return (
 		<FormWrapper>
-			<Option
-				buttonText={props.isChange.request}
-				dispatcher={handleSubmit}
-			>
+			<Option buttonText={request} dispatcher={handleSubmit}>
 				<StyledBootstrapCol>
 					<FormInput
 						type="text"
-						placeholder="Enter policy name"
+						placeholder="Create policy form"
 						value={values.policyName}
 						name="policyName"
 						onChange={handleChange}

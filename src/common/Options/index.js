@@ -1,19 +1,19 @@
-import React from 'react'
-import { Form } from 'react-bootstrap'
-import { StyledBootrapInput } from './style.js'
+import React, { useState } from 'react'
+import { Form, Col } from 'react-bootstrap'
+import { Input } from './style.js'
+import Message from '../../common/Message/'
 
-const Option = ({ onChange, optionList }) => {
+export default ({ initialValue, onChange, options, ...props }) => {
 	return (
-		<Form.Group className="mb-0">
-			<StyledBootrapInput size="lg" as="select" onChange={onChange}>
-				{optionList.map(({ value, item }) => (
-					<option key={Math.random()} value={value}>
-						{item}
+		<Form.Group>
+			<Message text="What are your interests?" />
+			<Form.Control as="select" onChange={onChange} value={initialValue}>
+				{options.map(({ Id, value, displayValue }) => (
+					<option key={Id} value={value}>
+						{displayValue}
 					</option>
 				))}
-			</StyledBootrapInput>
+			</Form.Control>
 		</Form.Group>
 	)
 }
-
-export default Option
