@@ -14,6 +14,9 @@ const CreatePolicyForm = ({
 	createPolicy,
 	...props
 }) => {
+	const initialState = {
+		policyName: ''
+	}
 	const {
 		handleSubmit,
 		handleChange,
@@ -21,7 +24,7 @@ const CreatePolicyForm = ({
 		values,
 		errors,
 		isSubmitting
-	} = useForm(validateAuth, setPolicy)
+	} = useForm(initialState, validateAuth, setPolicy)
 
 	function validateAuth(values) {
 		let errors = {}
@@ -41,8 +44,7 @@ const CreatePolicyForm = ({
 			<Option
 				buttonText={request}
 				dispatcher={handleSubmit}
-				isSubmit={isSubmitting}
-			>
+				isSubmit={isSubmitting}>
 				<StyledBootstrapCol>
 					<FormInput
 						className={errors.policyName && 'error-input'}

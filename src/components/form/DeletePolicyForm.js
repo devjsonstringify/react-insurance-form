@@ -14,6 +14,9 @@ const DeletePolicyForm = ({
 	deletePolicy,
 	...props
 }) => {
+	const initialState = {
+		policyName: ''
+	}
 	const {
 		handleSubmit,
 		handleChange,
@@ -21,7 +24,7 @@ const DeletePolicyForm = ({
 		values,
 		errors,
 		isSubmitting
-	} = useForm(validateAuth, setDelete)
+	} = useForm(initialState, validateAuth, setDelete)
 
 	function validateAuth(values) {
 		let errors = {}
@@ -43,8 +46,7 @@ const DeletePolicyForm = ({
 			<Option
 				buttonText={request}
 				dispatcher={handleSubmit}
-				isSubmit={isSubmitting}
-			>
+				isSubmit={isSubmitting}>
 				<StyledBootstrapCol>
 					<FormInput
 						className={errors.policyName && 'error-input'}

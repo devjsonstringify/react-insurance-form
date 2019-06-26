@@ -14,6 +14,10 @@ const CreateClaimForm = ({
 	createClaim,
 	...props
 }) => {
+	const initialState = {
+		policyName: '',
+		amountToCollect: ''
+	}
 	const {
 		handleSubmit,
 		handleChange,
@@ -21,7 +25,7 @@ const CreateClaimForm = ({
 		values,
 		errors,
 		isSubmitting
-	} = useForm(validateAuth, setClaim)
+	} = useForm(initialState, validateAuth, setClaim)
 
 	function validateAuth(values) {
 		let errors = {}
@@ -47,8 +51,7 @@ const CreateClaimForm = ({
 			<Option
 				buttonText={request}
 				dispatcher={handleSubmit}
-				isSubmit={isSubmitting}
-			>
+				isSubmit={isSubmitting}>
 				<StyledBootstrapCol>
 					<FormInput
 						className={errors.policyName && 'error-input'}

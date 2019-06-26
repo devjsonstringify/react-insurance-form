@@ -1,14 +1,20 @@
 import { useState, useEffect } from 'react'
 
-const useForm = (validate, callback) => {
-	const [values, setValues] = useState({
-		policyName: '',
-		amountToCollect: ''
-	})
+const useForm = (initialState, validate, callback) => {
+	const [values, setValues] = useState(initialState)
 	const [errors, setErrors] = useState({})
 	const [isSubmitting, setSubmitting] = useState(false)
 
-	const handleChange = event => {
+	useEffect(() => {
+		if (Object.keys(errors).length === 0 && isSubmitting) {
+			console.log('success' + ' ' + JSON.stringify(values, null, 2))
+			callback()
+		} else {
+			setSubmitting(false)
+		}
+	}, [callback, errors, isSubmitting, values])
+
+	const handleChange = (event) => {
 		event.preventDefault()
 		setValues({
 			...values,
@@ -16,32 +22,16 @@ const useForm = (validate, callback) => {
 		})
 	}
 
-	useEffect(() => {
-		if (isSubmitting) {
-			const noErrors = Object.keys(errors).length === 0
-			if (noErrors) {
-				console.log(
-					'authenticated!',
-					values.policyName,
-					values.amountToCollect
-				)
-				setSubmitting(false)
-			} else {
-				setSubmitting(false)
-			}
-		}
-	}, [errors])
-
 	const handleBlur = () => {
 		const validationErrors = validate(values)
 		setErrors(validationErrors)
 	}
 
-	const handleSubmit = event => {
+	const handleSubmit = (event) => {
 		event.preventDefault()
-		setSubmitting(true)
 		const validationErrors = validate(values)
 		setErrors(validationErrors)
+		setSubmitting(true)
 	}
 	return {
 		handleSubmit,
