@@ -5,16 +5,18 @@ const useForm = (initialState, validate, callback) => {
 	const [errors, setErrors] = useState({})
 	const [isSubmitting, setSubmitting] = useState(false)
 
+	// prettier-ignore
 	useEffect(() => {
 		if (Object.keys(errors).length === 0 && isSubmitting) {
-			console.log('success' + ' ' + JSON.stringify(values, null, 2))
+			setValues({ ...initialState })
 			callback()
+			setSubmitting(false)
 		} else {
 			setSubmitting(false)
 		}
-	}, [callback, errors, isSubmitting, values])
+	}, [errors])
 
-	const handleChange = (event) => {
+	const handleChange = event => {
 		event.preventDefault()
 		setValues({
 			...values,
@@ -27,7 +29,7 @@ const useForm = (initialState, validate, callback) => {
 		setErrors(validationErrors)
 	}
 
-	const handleSubmit = (event) => {
+	const handleSubmit = event => {
 		event.preventDefault()
 		const validationErrors = validate(values)
 		setErrors(validationErrors)
