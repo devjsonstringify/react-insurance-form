@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
+import { toast } from 'react-toastify'
 import { createClaim, isChanged } from '../../actions'
 import Option from '../../common/Container.js'
 import FormInput from '../../common/InputField'
@@ -14,6 +15,11 @@ const CreateClaimForm = ({
 	createClaim,
 	...props
 }) => {
+	const toastify = {
+		type: toast.TYPE.SUCCESS,
+		autoClose: 1000
+	}
+
 	const initialState = {
 		policyName: '',
 		amountToCollect: ''
@@ -43,7 +49,10 @@ const CreateClaimForm = ({
 	}
 
 	function setClaim() {
-		createClaim(`${values.policyName}`, `${values.amountToCollect}`)
+		const user = values.policyName
+		const amount = values.amountToCollect
+		createClaim(`${user}`, `${amount}`)
+		toast('success', toastify)
 	}
 
 	return (
@@ -51,7 +60,8 @@ const CreateClaimForm = ({
 			<Option
 				buttonText={request}
 				dispatcher={handleSubmit}
-				isSubmit={isSubmitting}>
+				isSubmit={isSubmitting}
+			>
 				<StyledBootstrapCol>
 					<FormInput
 						className={errors.policyName && 'error-input'}
