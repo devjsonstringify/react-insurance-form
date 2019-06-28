@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { accounting } from '../../store'
 
 const InsuranceVault = ({ accounting, ...props }) => {
-	const isEmpty = accounting === 0
+	const isEmpty = accounting < 1
 	return (
 		<Col className="mt-3">
 			<Alert variant={isEmpty ? 'danger' : 'success'}>
