@@ -51,11 +51,21 @@ const CreateClaimForm = ({
 		return errors
 	}
 
-	function setClaim() {
+	async function setClaim() {
 		const user = values.policyName
 		const amount = values.amountToCollect
-		createClaim(`${user}`, `${amount}`)
-		toast('success', toastify)
+		if (amount > accounting) {
+			return (
+				true &&
+				toast(`Error: Maximum limit`, {
+					...toastify,
+					type: toast.TYPE.ERROR
+				})
+			)
+		} else {
+			await createClaim(`${user}`, `${amount}`)
+			toast('success', toastify)
+		}
 	}
 
 	return (
