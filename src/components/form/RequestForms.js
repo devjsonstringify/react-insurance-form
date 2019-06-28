@@ -1,12 +1,12 @@
 import React, { useState, Fragment } from 'react'
-import store from '../../store'
+import store from '../../redux/store/'
 import { connect } from 'react-redux'
 import {
 	createClaim,
 	createPolicy,
 	deletePolicy,
 	isChanged
-} from '../../actions'
+} from '../../redux/actions'
 import Option from './../../common/Options/'
 import PolicyForms from './PolicyForms'
 
