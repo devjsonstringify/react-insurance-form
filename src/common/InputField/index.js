@@ -9,7 +9,8 @@ export default ({
 	name,
 	onBlur,
 	className,
-	onChange
+	onChange,
+	isDisable
 }) => {
 	return (
 		<StyledBootrapGroup>
@@ -21,6 +22,7 @@ export default ({
 				onChange={onChange}
 				onBlur={onBlur}
 				className={className}
+				disabled={isDisable}
 				autoFocus
 			/>
 		</StyledBootrapGroup>

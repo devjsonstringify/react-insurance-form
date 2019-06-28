@@ -8,7 +8,7 @@ export const createClaim = (name, amountOfMoneyToCollect) => {
 	}
 }
 
-export const createPolicy = (name) => {
+export const createPolicy = name => {
 	return {
 		type: 'CREATE_POLICY',
 		payload: {
@@ -18,21 +18,11 @@ export const createPolicy = (name) => {
 	}
 }
 
-export const deletePolicy = (name) => {
+export const deletePolicy = name => {
 	return {
 		type: 'DELETE_POLICY',
 		payload: {
 			name: name
-		}
-	}
-}
-
-export const isChanged = (isChange) => {
-	return {
-		type: 'IS_CHANGED',
-		payload: {
-			request: isChange != '' ? isChange : '',
-			status: isChange != '' ? true : false
 		}
 	}
 }

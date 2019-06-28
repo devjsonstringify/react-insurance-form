@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { toast } from 'react-toastify'
-import { deletePolicy, isChanged } from '../../redux/actions'
+import { deletePolicy } from '../../redux/actions'
 import Option from '../../common/Container.js'
 import FormInput from '../../common/InputField'
 import useForm from '../../common/useForm'
@@ -72,19 +72,11 @@ const DeletePolicyForm = ({
 	)
 }
 
-const mapToState = ({ claimsHistory, isChange }) => {
-	return {
-		claimsHistory,
-		isChange
-	}
-}
-
 const mapDispatchToProps = {
-	deletePolicy,
-	isChanged
+	deletePolicy
 }
 
 export default connect(
-	mapToState,
+	null,
 	mapDispatchToProps
 )(DeletePolicyForm)

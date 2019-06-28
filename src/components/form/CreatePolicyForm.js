@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { toast } from 'react-toastify'
-import { createPolicy, isChanged } from '../../redux/actions'
+import { createPolicy } from '../../redux/actions'
 import Option from '../../common/Container.js'
 import FormInput from '../../common/InputField'
 import useForm from '../../common/useForm'
@@ -69,18 +69,11 @@ const CreatePolicyForm = ({
 	)
 }
 
-const mapToState = ({ isChange }) => {
-	return {
-		isChange
-	}
-}
-
 const mapDispatchToProps = {
-	createPolicy,
-	isChanged
+	createPolicy
 }
 
 export default connect(
-	mapToState,
+	null,
 	mapDispatchToProps
 )(CreatePolicyForm)

@@ -2,13 +2,16 @@ import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { toast } from 'react-toastify'
-import { createClaim, isChanged } from '../../redux/actions'
+import { createClaim } from '../../redux/actions'
+import { accounting } from '../../redux/store/'
 import Option from '../../common/Container.js'
 import FormInput from '../../common/InputField'
 import useForm from '../../common/useForm'
 import { FormWrapper, StyledBootstrapCol } from './style.js'
 
 const CreateClaimForm = ({
+	accounting,
+	isDisable,
 	isSubmit,
 	onBlur,
 	request,
@@ -71,6 +74,7 @@ const CreateClaimForm = ({
 						name="policyName"
 						onChange={handleChange}
 						onBlur={handleBlur}
+						isDisable={!accounting ? true : false}
 					/>
 					<FormInput
 						className={errors.amountToCollect && 'error-input'}
@@ -80,21 +84,21 @@ const CreateClaimForm = ({
 						name="amountToCollect"
 						onChange={handleChange}
 						onBlur={handleBlur}
+						isDisable={!accounting ? true : false}
 					/>
 				</StyledBootstrapCol>
 			</Option>
 		</FormWrapper>
 	)
 }
-const mapToState = ({ isChange }) => {
+const mapToState = ({ accounting }) => {
 	return {
-		isChange
+		accounting
 	}
 }
 
 const mapDispatchToProps = {
-	createClaim,
-	isChanged
+	createClaim
 }
 export default connect(
 	mapToState,

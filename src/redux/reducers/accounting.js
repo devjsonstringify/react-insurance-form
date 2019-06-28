@@ -1,4 +1,3 @@
-
 const accounting = (bagOfMoney = 100, action) => {
 	if (action.type === 'CREATE_CLAIM') {
 		return bagOfMoney - action.payload.amountOfMoneyToCollect
