@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
+import { toast } from 'react-toastify'
 import { createPolicy, isChanged } from '../../actions'
 import Option from '../../common/Container.js'
 import FormInput from '../../common/InputField'
@@ -14,6 +15,13 @@ const CreatePolicyForm = ({
 	createPolicy,
 	...props
 }) => {
+	const toastify = {
+		type: toast.TYPE.SUCCESS,
+		autoClose: 1000
+	}
+	const initialState = {
+		policyName: ''
+	}
 	const {
 		handleSubmit,
 		handleChange,
@@ -21,7 +29,7 @@ const CreatePolicyForm = ({
 		values,
 		errors,
 		isSubmitting
-	} = useForm(validateAuth, setPolicy)
+	} = useForm(initialState, validateAuth, setPolicy)
 
 	function validateAuth(values) {
 		let errors = {}
@@ -33,7 +41,9 @@ const CreatePolicyForm = ({
 	}
 
 	function setPolicy() {
-		createPolicy(`${values.policyName}`)
+		const user = values.policyName
+		createPolicy(`${user}`)
+		toast('success', toastify)
 	}
 
 	return (

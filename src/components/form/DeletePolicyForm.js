@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
+import { toast } from 'react-toastify'
 import { deletePolicy, isChanged } from '../../actions'
 import Option from '../../common/Container.js'
 import FormInput from '../../common/InputField'
@@ -14,6 +15,14 @@ const DeletePolicyForm = ({
 	deletePolicy,
 	...props
 }) => {
+	const toastify = {
+		type: toast.TYPE.SUCCESS,
+		autoClose: 1000
+	}
+
+	const initialState = {
+		policyName: ''
+	}
 	const {
 		handleSubmit,
 		handleChange,
@@ -21,7 +30,7 @@ const DeletePolicyForm = ({
 		values,
 		errors,
 		isSubmitting
-	} = useForm(validateAuth, setDelete)
+	} = useForm(initialState, validateAuth, setDelete)
 
 	function validateAuth(values) {
 		let errors = {}
@@ -33,7 +42,9 @@ const DeletePolicyForm = ({
 	}
 
 	function setDelete() {
-		deletePolicy(`${values.policyName}`)
+		let user = values.policyName
+		deletePolicy(`${user}`)
+		toast('success', toastify)
 	}
 
 	return (

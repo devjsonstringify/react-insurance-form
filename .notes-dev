@@ -1,7 +1,11 @@
 
 
-Bug: While typing on the form the cursor goes to the web serch
-noted
+Bug: Create form input is missing
+
+
+
+next commit:
+Fix: modify message add text as props and insert to option comp.
 
 
 follow this design https://dribbble.com/shots/6644280--Reset-Password

@@ -1,12 +1,20 @@
 import { useState, useEffect } from 'react'
 
-const useForm = (validate, callback) => {
-	const [values, setValues] = useState({
-		policyName: '',
-		amountToCollect: ''
-	})
+const useForm = (initialState, validate, callback) => {
+	const [values, setValues] = useState(initialState)
 	const [errors, setErrors] = useState({})
 	const [isSubmitting, setSubmitting] = useState(false)
+
+	// prettier-ignore
+	useEffect(() => {
+		if (Object.keys(errors).length === 0 && isSubmitting) {
+			setValues({ ...initialState })
+			callback()
+			setSubmitting(false)
+		} else {
+			setSubmitting(false)
+		}
+	}, [errors])
 
 	const handleChange = event => {
 		event.preventDefault()
@@ -16,22 +24,6 @@ const useForm = (validate, callback) => {
 		})
 	}
 
-	useEffect(() => {
-		if (isSubmitting) {
-			const noErrors = Object.keys(errors).length === 0
-			if (noErrors) {
-				console.log(
-					'authenticated!',
-					values.policyName,
-					values.amountToCollect
-				)
-				setSubmitting(false)
-			} else {
-				setSubmitting(false)
-			}
-		}
-	}, [errors])
-
 	const handleBlur = () => {
 		const validationErrors = validate(values)
 		setErrors(validationErrors)
@@ -39,9 +31,9 @@ const useForm = (validate, callback) => {
 
 	const handleSubmit = event => {
 		event.preventDefault()
-		setSubmitting(true)
 		const validationErrors = validate(values)
 		setErrors(validationErrors)
+		setSubmitting(true)
 	}
 	return {
 		handleSubmit,
