@@ -1,12 +1,5 @@
 import React, { useState, Fragment } from 'react'
-import store from '../../store'
-import { connect } from 'react-redux'
-import {
-	createClaim,
-	createPolicy,
-	deletePolicy,
-	isChanged
-} from '../../actions'
+import store from '../../redux/store/'
 import Option from './../../common/Options/'
 import PolicyForms from './PolicyForms'
 
@@ -36,23 +29,4 @@ const RequestForms = props => {
 	)
 }
 
-const mapToState = ({ accounting, claimsHistory, policies, isChange }) => {
-	return {
-		accounting,
-		claimsHistory,
-		policies,
-		isChange
-	}
-}
-
-const mapDispatchToProps = {
-	createClaim,
-	createPolicy,
-	deletePolicy,
-	isChanged
-}
-
-export default connect(
-	mapToState,
-	mapDispatchToProps
-)(RequestForms)
+export default RequestForms
